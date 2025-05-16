@@ -62,12 +62,17 @@ class Consumer implements Runnable {
     }
 }
 public class ThreadCommunication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SharedResource resource = new SharedResource();
         Thread producerThread = new Thread(new Producer(resource));
         Thread consumerThread = new Thread(new Consumer(resource));
 
         producerThread.start();
         consumerThread.start();
+
+//        producerThread.notifyAll();
+//        consumerThread.notifyAll();
+//        producerThread.join();
+//        consumerThread.join();
     }
 }

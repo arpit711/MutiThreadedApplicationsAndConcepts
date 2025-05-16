@@ -46,10 +46,10 @@ class Task1 implements Runnable {
 //        public void run() {
 //            pen.writeWithPenAndPaper(paper);
 //        }
-
-        synchronized (paper) {
-            pen.writeWithPenAndPaper(paper);
-        }
+        pen.writeWithPenAndPaper(paper);
+//        synchronized (paper) {
+//            pen.writeWithPenAndPaper(paper);
+//        }
     }
 }
 
@@ -65,9 +65,10 @@ class Task2 implements Runnable {
 
     @Override
     public void run() {
-        synchronized (pen) {
-            paper.writeWithPaperAndPen(pen);
-        }
+        paper.writeWithPaperAndPen(pen);
+//        synchronized (pen) {
+//            paper.writeWithPaperAndPen(pen);
+//        }
     }
 }
 
@@ -79,8 +80,8 @@ public class DeadlockExample {
         Task1 task1 = new Task1(pen, paper);
         Task2 task2 = new Task2(pen, paper);
 
-        Thread t1 = new Thread(new Task1(pen,paper), "Thread-1");
-        Thread t2 = new Thread(new Task2(pen, paper), "Thread-2");
+        Thread t1 = new Thread(task1, "Thread-1");
+        Thread t2 = new Thread(task2, "Thread-2");
 
         try{
             t1.start();
